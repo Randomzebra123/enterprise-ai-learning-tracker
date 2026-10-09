@@ -33,6 +33,7 @@ let passed=0;
 async function test(name,f){await f();passed++;console.log('PASS '+name)}
 (async()=>{
  const e=env();
+ await test('Cloud comparison ignores JSONB property ordering',()=>{assert(vm.runInContext('equal({a:1,b:{x:2,y:3}},{b:{y:3,x:2},a:1})',e))});
  await test('12 modules / 60 tasks / 23 HTTPS resources',()=>{
   const content=vm.runInContext('JSON.stringify(W)',e),W=JSON.parse(content);
   assert.equal(W.length,12);assert.equal(W.reduce((n,w)=>n+w.tasks.length,0),60);

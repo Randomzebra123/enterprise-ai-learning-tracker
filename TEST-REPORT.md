@@ -6,7 +6,8 @@
 - All 23 learning-resource URLs use HTTPS. Links include YouTube searches, not only individual videos. External availability not yet verified.
 - JavaScript syntax: inline dashboard script and cloud-sync.js.
 - PostgreSQL and PL/pgSQL parsing: 13 statements and one function, using pglast 8.5. Parsing is not live execution.
-- 13 Node functional checks using a simulated DOM, browser storage and Supabase client (`node tests/verify.cjs`):
+- 14 Node functional checks using a simulated DOM, browser storage and Supabase client (`node tests/verify.cjs`):
+  - Cloud equality ignores JSONB property order.
   - Modules, tasks, resources and sidebar rendering.
   - Malformed backup rejection (arrays, note/task types, negative hours).
   - Local task, note, evidence and hours persistence; HTML escaping.

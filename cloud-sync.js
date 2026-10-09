@@ -14,7 +14,8 @@ try {
   owner = sessionStorage.getItem('ai-tracker-owner') || localStorage.getItem('ai-tracker-last-owner');
 } catch { tabId = crypto.randomUUID(); }
 const recordKey = user => prefix + user + ':' + tabId;
-const equal = (a,b) => JSON.stringify(a) === JSON.stringify(b);
+const canonical = value => value && typeof value==='object' && !Array.isArray(value) ? Object.fromEntries(Object.keys(value).sort().map(k=>[k,canonical(value[k])])) : value;
+const equal = (a,b) => JSON.stringify(canonical(a)) === JSON.stringify(canonical(b));
 function status(message, style = '') {
   ui('syncStatus').textContent = message;
   ui('syncStatus').className = 'sync-status ' + style;
