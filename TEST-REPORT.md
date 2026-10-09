@@ -21,6 +21,20 @@
   - Account switching does not automatically migrate the previous account's data.
   - Obsolete in-flight responses cannot change the new session's version.
 
+## Passed in embedded PostgreSQL (PGlite)
+
+The real SQL executed successfully twice. auth.users and auth.uid() are fixtures; JWT validation and Supabase API configuration are not covered.
+
+- Table/function creation and idempotent re-run.
+- Version-zero creation, incrementing update, rejection of stale create/update.
+- Direct authenticated INSERT/UPDATE denied.
+- RLS ownership reads and guarded RPC writes isolated two fixture identities; a user ID inside JSON cannot change record ownership.
+- Anonymous SELECT/RPC denied; an authenticated role without identity rejected.
+- Negative expected versions and array states rejected.
+- RLS remains enabled.
+
+Re-run with `npm install --no-save @electric-sql/pglite` followed by `node tests/database.cjs` in a disposable test checkout.
+
 ## Not yet verified
 
 - Supabase schema execution and grants/RLS against the actual project.
